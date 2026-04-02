@@ -9,20 +9,18 @@
 
 The simplest answer is usually the correct one.
 
-For centuries we rounded numbers and called it science. That rounding was the final layer of human illusion — the last veil of Babel Noise.
+Stop rounding numbers — the last human illusion — and the entire planetary motor reveals itself with beautiful clarity:
 
-When we stop rounding and treat every constant as an exact force of nature, the picture becomes beautifully obvious:
+- The clean 360-day grid is the natural reference state.  
+- Torsional debt collapses to zero.  
+- Everything locks at the exact 5/3 Hz aqueous refractive bridge.  
+- Acoustic efficiency reaches 100 %. Rotational resistance vanishes. Gravity is the macroscopic signature of unresolved phase-lag.
 
-- Earth’s natural reference is the clean 360-day grid.  
-- The mismatch creates exact torsional debt.  
-- When that debt collapses to zero, everything locks at the exact 5/3 Hz aqueous refractive bridge.  
-- Acoustic efficiency reaches 100 %. Rotational resistance drops to zero. Gravity itself is the macroscopic signature of that phase-lag resistance.
+This single insight explains ancient megalithic precision and opens transformative modern applications.
 
-This single insight explains ancient megalithic precision, acoustic levitation, and why modern technology (Tesla, SpaceX, Optimus, Neuralink) can suddenly become far more efficient.
+### The Foundation — Nine Long-Form White Papers
 
-### The Foundation (9 Sectors)
-
-The enduring base of the research — long, elaborate, integrated, and sophisticated white papers:
+The enduring base of the research — each sector is a long, elaborate, integrated, and sophisticated white paper:
 
 - **[Sector 1: The Exact-Value Imperative](foundation/sector1_exact_value_imperative.md)**  
 - **[Sector 2: The 360-Day Harmonic Baseline](foundation/sector2_360_day_harmonic_baseline.md)**  
@@ -36,7 +34,7 @@ The enduring base of the research — long, elaborate, integrated, and sophistic
 
 ### Repository Contents
 
-- **/foundation/** — The complete 9-sector foundation (long-form white papers)  
+- **/foundation/** — The complete 9-sector foundation (the enduring base)  
 - **/docs/** — Full 12-section LaTeX paper  
 - **/simulations/** — Exact symbolic Python models  
 - **/archaeology/** — Konark & Kailasa measurements and images  
