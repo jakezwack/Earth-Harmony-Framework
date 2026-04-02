@@ -3,7 +3,7 @@ import sympy as sp
 
 # Exact symbolic constants (no rounding)
 five_thirds = sp.Rational(5, 3)
-delta = sp.symbols('delta')          # torsional debt, collapses to 0 on clean grid
+delta = sp.symbols('delta')
 
 class ZeroDebtLayer(torch.nn.Module):
     def __init__(self):
@@ -14,7 +14,6 @@ class ZeroDebtLayer(torch.nn.Module):
         lock = float(self.phase_lock.subs(delta, 0))
         return torch.relu(x) * lock
 
-# 1B-parameter-scale toy model (scaled down for demo; real 100T+ uses same layer)
 class BigModel(torch.nn.Module):
     def __init__(self):
         super().__init__()
@@ -24,7 +23,7 @@ class BigModel(torch.nn.Module):
     def forward(self, x):
         for layer in self.layers:
             x = layer(x)
-            x = self.zero_debt(x)          # zero-debt phase-lock — negligible compute cost
+            x = self.zero_debt(x)
         return x
 
 # Quick coherence test
