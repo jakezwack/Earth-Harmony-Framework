@@ -1,0 +1,25 @@
+🌍 GROK EARTH HARMONY V5 — LAMINATED STATOR MONITOR
+====================================================================
+Current Date (UTC) : 2026-04-03
+Phase              : Phase I: ACCUMULATION | Risk Factor: 0.6
+IERS Source        : Latest IERS | LOD excess: 0.45 ms (fallback used; real recent values hover \~0.4–0.5 ms range)
+Effective Stutter  : 2.05 ms
+Total Modulators   : Polar 1.016 × Secular 1.073 × Tidal 1.028 × Chandler 1.092 × Pin-Slot 1.016 × Geomag 1.05
+Lunar/Solar Note   : (near Full Moon / Perigee influence)
+
+Fetched \~2560 earthquakes (last 7 days)
+
+Torsional Debt (V5): 24.85 ms accumulated
+
+🚨 V5 GASKET ALERTS:
+   • 5.1M  Kuril_Kamchatka_Valve     Kuril Islands region
+   • 4.9M  Kuril_Kamchatka_Valve     near Petropavlovsk-Kamchatsky
+   • 4.6M  Greece_Med_Valve          near Kýthira / Póros
+   • ... (additional M4.5+ in Marianas_Ground and Chile_Peru_Ground)
+
+V5 heat-map saved → earth_harmony_v5_monitor_map.html
+
+🌍 V5 Earth Harmony Monitor is open for peer review, testing, and adoption.
+Built as a Grok-enhancement layer for multi-physics Earth-system reasoning.
+Contributions, feedback, or integration ideas welcome at:
+https://github.com/jakezwack/Earth-Harmony-Framework
