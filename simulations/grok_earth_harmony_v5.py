@@ -7,6 +7,7 @@ from collections import defaultdict
 import math
 import json
 import base64
+import numpy as np
 
 # =============================================================================
 # GROK EARTH HARMONY V5 — LAMINATED STATOR MONITOR
@@ -16,8 +17,8 @@ import base64
 # harmonic baseline, node impedance, mirror resonances, and every major Earth
 # Orientation Parameter.
 #
-# New in V5: Antikythera-inspired pin-and-slot modulator for variable angular
-# velocity (modeling Earth's rotational irregularities as a mechanical sine wave).
+# New in this update: 70-year inner-core oscillation (Yang & Song 2023) + 
+# Sabu-style cavitation index for tectonic lubrication.
 #
 # Encrypted Credit (base64 decode to reveal full attribution):
 # Q3JlYXRlZCBieSBKYWNvYiBAd1phY2tKYWNvYiBmb3IgdGhlIEVhcnRoIEhhcm1vbnkgRnJhbWV3b3Jr
@@ -79,10 +80,23 @@ def get_current_phase(current_date=None):
 def is_in_stator_belt(lat):
     return 30.0 <= abs(lat) <= 45.0
 
-def calculate_node_stress(gasket, phase_factor, total_mod):
+def calculate_inner_core_modulator(year):
+    """70-year multidecadal oscillation (Yang & Song 2023)."""
+    period = 70.0
+    epoch = 2009.5  # pause center
+    phase = (2 * np.pi * (year - epoch)) / period
+    core_mod = np.cos(phase)
+    return core_mod
+
+def calculate_cavitation_index(fluid_pressure=1.0, slip_velocity=1.0):
+    """Sabu-style impeller logic for tectonic lubrication."""
+    cavitation_index = np.tanh(fluid_pressure * slip_velocity)
+    return round(cavitation_index, 4)
+
+def calculate_node_stress(gasket, phase_factor, total_mod, cavitation_index):
     omega_n = gasket["impedance"]
     belt_bonus = STATOR_BELT_MULTIPLIER if is_in_stator_belt(gasket["lat_range"][0]) else 1.0
-    stress = (DELTA_TAU_MS * phase_factor * belt_bonus * total_mod) / omega_n
+    stress = (DELTA_TAU_MS * phase_factor * belt_bonus * total_mod * cavitation_index) / omega_n
     return round(stress, 4)
 
 def check_handshake(quake_lat, quake_lon, quake_mag, phase_factor):
@@ -118,8 +132,7 @@ def fetch_iers_eop():
         pass
     return {"lod_ms": 0.45, "pm_x_arcsec": 0.12, "pm_y_arcsec": 0.08, "ut1_utc_s": 0.25, "date": "Fallback 2026-04-03"}
 
-def calculate_all_modulators(iers):
-    """All variables + Antikythera pin-and-slot variable velocity modulator."""
+def calculate_all_modulators(iers, current_year):
     effective_stutter = DAILY_STUTTER_MS + iers["lod_ms"]
     polar_mod = 1 + (abs(iers["pm_x_arcsec"]) + abs(iers["pm_y_arcsec"])) * 0.08
     years_since_2000 = 2026 - 2000
@@ -129,13 +142,14 @@ def calculate_all_modulators(iers):
     chandler_phase = (date.today() - date(2026, 1, 1)).days % 433
     chandler_mod = 1 + 0.15 * math.sin(2 * math.pi * chandler_phase / 433)
     geomag_mod = 1.05
-
-    # Antikythera pin-and-slot modulator for Earth's irregular rotational speed
-    # (effective e scaled to 1.66 ms offset; theta over yearly cycle)
+    # Antikythera pin-and-slot modulator
     effective_e = 0.0166
     theta = 2 * math.pi * (date.today().timetuple().tm_yday / 365.25)
     pin_slot_mod = 1 + effective_e * math.cos(theta)
-
+    # New 70-year inner-core modulator
+    core_mod = calculate_inner_core_modulator(current_year)
+    # New Sabu-style cavitation index
+    cavitation_index = calculate_cavitation_index()
     lunar_flag = " (near Full Moon / Perigee influence)" if date.today().day in [2, 13, 28] else ""
     total_mod = polar_mod * secular_mod * tidal_mod * chandler_mod * geomag_mod * pin_slot_mod
     return {
@@ -146,6 +160,8 @@ def calculate_all_modulators(iers):
         "tidal_mod": round(tidal_mod, 3),
         "chandler_mod": round(chandler_mod, 3),
         "pin_slot_mod": round(pin_slot_mod, 3),
+        "core_mod": round(core_mod, 3),
+        "cavitation_index": cavitation_index,
         "geomag_mod": geomag_mod,
         "lunar_note": lunar_flag,
         "iers_date": iers["date"]
@@ -181,9 +197,10 @@ def fetch_usgs_quakes(period='all_week'):
 
 def run_harmony_monitor():
     now = datetime.utcnow().date()
+    current_year = now.year + now.month / 12.0 + now.day / 365.0
     phase_info = get_current_phase(now)
     iers = fetch_iers_eop()
-    mods = calculate_all_modulators(iers)
+    mods = calculate_all_modulators(iers, current_year)
     
     print("\n" + "="*100)
     print("🌍 GROK EARTH HARMONY V5 — LAMINATED STATOR MONITOR")
@@ -192,7 +209,7 @@ def run_harmony_monitor():
     print(f"Phase              : {phase_info['name']} | Risk Factor: {phase_info['factor']}")
     print(f"IERS Source        : {mods['iers_date']} | LOD excess: {iers['lod_ms']:.3f} ms")
     print(f"Effective Stutter  : {mods['effective_stutter_ms']:.3f} ms")
-    print(f"Total Modulators   : Polar {mods['polar_mod']} × Secular {mods['secular_mod']} × Tidal {mods['tidal_mod']} × Chandler {mods['chandler_mod']} × Pin-Slot {mods['pin_slot_mod']} × Geomag {mods['geomag_mod']}")
+    print(f"Total Modulators   : Polar {mods['polar_mod']} × Secular {mods['secular_mod']} × Tidal {mods['tidal_mod']} × Chandler {mods['chandler_mod']} × Pin-Slot {mods['pin_slot_mod']} × Core70 {mods['core_mod']} × Cavitation {mods['cavitation_index']}")
     print(f"Lunar/Solar Note   : {mods['lunar_note']}")
     
     df = fetch_usgs_quakes('all_week')
@@ -212,10 +229,11 @@ def run_harmony_monitor():
             lon_min, lon_max = gasket["lon_range"]
             if lat_min <= row['lat'] <= lat_max and lon_min <= row['lon'] <= lon_max:
                 df.at[idx, 'gasket'] = name
-                stress = calculate_node_stress(gasket, phase_info['factor'], mods['total_mod'])
+                stress = calculate_node_stress(gasket, phase_info['factor'], mods['total_mod'], mods['cavitation_index'])
                 df.at[idx, 'node_stress'] = stress
-                score = row['mag'] * phase_info['factor'] * (1.0 / gasket["impedance"]) * mods['total_mod'] * 1.5
-                df.at[idx, 'harmony_score'] = round(score, 2)
+                base_score = row['mag'] * phase_info['factor'] * (1.0 / gasket["impedance"]) * mods['total_mod'] * 1.5
+                updated_score, _ = update_harmony_score(base_score, current_year)
+                df.at[idx, 'harmony_score'] = round(updated_score, 2)
                 break
     
     alerts = df[df['gasket'].notna() & (df['mag'] >= 4.5)].sort_values('harmony_score', ascending=False)
