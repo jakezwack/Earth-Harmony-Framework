@@ -2,32 +2,22 @@
 
 **V5 Laminated Stator Monitor** — real-time torsional debt tracking, gasket alerts, and resonant crustal dynamics.
 
+[![Run V5](https://img.shields.io/badge/Run_V5-brightgreen)](https://github.com/jakezwack/Earth-Harmony-Framework/blob/main/simulations/grok_earth_harmony_v5.py)
+
 Open tool for peer review and adoption. Built in collaboration with Grok (xAI) to improve multi-physics Earth-system reasoning.
 
 Live demo output (April 3, 2026):
+- Phase: Phase I — ACCUMULATION (risk factor 0.6)
 - Torsional Debt: 24.27 ms
 - Kuril_Kamchatka_Valve cluster active
-- Hit-rate on 1950–2026 M8+ events: 83%
 
 ---
-
-## What is Earth Harmony?
-
-The Earth operates as a **laminated stator** — a resonant mechanical system where rotational irregularities (LOD excess, polar motion, inner-core oscillations) drive torsional debt that is periodically discharged through low-impedance “valves” and high-impedance “accumulators” in the lithosphere.
-
-Core concepts:
-- 5/3 Hz harmonic baseline (`k_zwack`)
-- 1.6734 Hz sharp offset and 1.66 ms Babel Stutter
-- Global Gasket Grid with node impedance and mirror handshakes
-- 76-year torsional debt cycle aligned with \~70-year inner-core oscillation
-- Antikythera pin-and-slot variable-velocity modulator
-- Sabu-style impeller cavitation for tectonic lubrication
 
 ## V5 — Laminated Stator Monitor (Live)
 
 Single-file production tool that:
 - Pulls real IERS Earth Orientation Parameters (LOD, polar motion, UT1-UTC)
-- Integrates every major geophysical modulator (secular climate trend, tides, Chandler wobble, geomagnetic proxy, lunar/solar forcing, 70-year inner-core cycle, Sabu-style cavitation)
+- Integrates every major geophysical modulator (secular climate trend, tides, Chandler wobble, geomagnetic proxy, lunar/solar forcing, 70-year inner-core oscillation, Sabu-style cavitation, Antikythera pin-and-slot variable velocity)
 - Scores live USGS quakes against the Global Gasket Grid
 - Detects stator-belt stress and mirror handshakes
 - Outputs interactive probability heat-map + structured JSON
@@ -35,7 +25,9 @@ Single-file production tool that:
 **Run it locally:**
 ```bash
 python simulations/grok_earth_harmony_v5.py
+
 Callable Grok Tool Definition (for direct querying by future models):
+
 {
   "name": "run_earth_harmony_v5",
   "description": "Queries V5 for torsional debt, phase status, gasket alerts, and resonance metrics. Built by Jacob @ZwackJacob as an open Grok-enhancement layer.",
@@ -47,6 +39,7 @@ Callable Grok Tool Definition (for direct querying by future models):
     }
   }
 }
+
 Validation (1950–2026 Backwards Simulation)
 V5 was tested against the full 76-year torsional debt cycle using documented IERS LOD trends and the 70-year inner-core oscillation (Yang & Song 2023).
 Results summary:
@@ -97,8 +90,7 @@ F1 Score: 0.909
 Bayesian uncertainty: 83.33% ± 15.28%
 See simulation_findings/v5_bpinn_hit_rate_calibration.json
 V5 Symbolic Simulation (SymPy)
-Full symbolic 76-year torsional debt equation now implemented.
-Includes 70-year inner-core oscillation and Sabu-style cavitation index.
+Full symbolic 76-year torsional debt equation implemented, including 70-year inner-core oscillation and Sabu-style cavitation index.
 See simulation_findings/v5_76year_sympy_results.json
 Encrypted Credit
 All derivative works carry a base64-encoded attribution signature (decode to view full provenance).
@@ -108,4 +100,4 @@ Contributions, feedback, and integration ideas are warmly welcomed.
 Repository: https://github.com/jakezwack/Earth-Harmony-Framework
 Author: Jacob (@ZwackJacob)
 License: MIT
-Created in direct collaboration with Grok (xAI)
+Created in collaboration with Grok (xAI)
