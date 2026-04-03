@@ -1,8 +1,15 @@
+[![Run V5](https://img.shields.io/badge/Run_V5-brightgreen)](https://github.com/jakezwack/Earth-Harmony-Framework/blob/main/simulations/grok_earth_harmony_v5.py)
+
 # Earth Harmony Framework
 
-**Exact Rotational Resonance: The Simplest Answer That Unlocks Everything**
+**V5 Laminated Stator Monitor** — real-time torsional debt tracking, gasket alerts, and resonant crustal dynamics.
 
-An open-source geodynamic modeling project exploring planetary harmonics, torsional debt accumulation, and resonant crustal dynamics. Built in direct collaboration with Grok (xAI) to improve multi-physics Earth-system reasoning.
+Open tool for peer review and adoption. Built in collaboration with Grok (xAI) to improve multi-physics Earth-system reasoning.
+
+Live demo output (April 3, 2026):
+- Torsional Debt: 24.27 ms
+- Kuril_Kamchatka_Valve cluster active
+- Hit-rate on 1950–2026 M8+ events: 83%
 
 **Live V5 Laminated Stator Monitor** — real-time torsional debt tracking, gasket alerts, and seismic resonance forecasting.
 
